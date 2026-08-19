@@ -1514,38 +1514,44 @@
     } else stopMusic();
   });
 
-  // function startIntroOnFirstInteraction(){
-  //   if(document.body.classList.contains('gate-active') && introAudio.paused){
-  //     startIntroMusic().catch(()=>{});
-  //   }
-  //   document.removeEventListener('pointerdown', startIntroOnFirstInteraction);
-  //   document.removeEventListener('keydown', startIntroOnFirstInteraction);
-  // }
-  // document.addEventListener('pointerdown', startIntroOnFirstInteraction);
-  // document.addEventListener('keydown', startIntroOnFirstInteraction);
-  // startIntroMusic().catch(()=>{});
   function startIntroOnFirstInteraction(){
     if(document.body.classList.contains('gate-active') && introAudio.paused){
-        startIntroMusic().catch(()=>{});
-        
-        // MOBILE TRICK: Silently unlock the other tracks right now so they don't fail later!
-        soothingAudio.play().then(() => soothingAudio.pause()).catch(()=>{});
-        birthdayAudio.play().then(() => birthdayAudio.pause()).catch(()=>{});
+      startIntroMusic().catch(()=>{});
     }
-    // Remove all listeners once triggered
     document.removeEventListener('pointerdown', startIntroOnFirstInteraction);
-    document.removeEventListener('touchstart', startIntroOnFirstInteraction);
-    document.removeEventListener('click', startIntroOnFirstInteraction);
     document.removeEventListener('keydown', startIntroOnFirstInteraction);
+    document.removeEventListener('touchstart', startIntroOnFirstInteraction, { passive: true });
+    document.removeEventListener('click', startIntroOnFirstInteraction);
+  
   }
-
-  // Add touchstart and click for mobile compatibility
   document.addEventListener('pointerdown', startIntroOnFirstInteraction);
+  document.addEventListener('keydown', startIntroOnFirstInteraction);
   document.addEventListener('touchstart', startIntroOnFirstInteraction, { passive: true });
   document.addEventListener('click', startIntroOnFirstInteraction);
-  document.addEventListener('keydown', startIntroOnFirstInteraction);
-
+  
   startIntroMusic().catch(()=>{});
+  // function startIntroOnFirstInteraction(){
+  //   if(document.body.classList.contains('gate-active') && introAudio.paused){
+  //       startIntroMusic().catch(()=>{});
+        
+  //       // MOBILE TRICK: Silently unlock the other tracks right now so they don't fail later!
+  //       soothingAudio.play().then(() => soothingAudio.pause()).catch(()=>{});
+  //       birthdayAudio.play().then(() => birthdayAudio.pause()).catch(()=>{});
+  //   }
+  //   // Remove all listeners once triggered
+  //   document.removeEventListener('pointerdown', startIntroOnFirstInteraction);
+  //   document.removeEventListener('touchstart', startIntroOnFirstInteraction);
+  //   document.removeEventListener('click', startIntroOnFirstInteraction);
+  //   document.removeEventListener('keydown', startIntroOnFirstInteraction);
+  // }
+
+  // // Add touchstart and click for mobile compatibility
+  // document.addEventListener('pointerdown', startIntroOnFirstInteraction);
+  // document.addEventListener('touchstart', startIntroOnFirstInteraction, { passive: true });
+  // document.addEventListener('click', startIntroOnFirstInteraction);
+  // document.addEventListener('keydown', startIntroOnFirstInteraction);
+
+  // startIntroMusic().catch(()=>{});
 
   // ---- gallery lightbox ----
   const lightbox = document.getElementById('lightbox');
